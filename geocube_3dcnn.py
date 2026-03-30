@@ -1,4 +1,5 @@
 import argparse
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Sequence, Tuple
@@ -341,7 +342,14 @@ def main():
         action="store_true",
         help="Только загрузить/провалидировать таблицы marks + not_marks и сохранить wells.txt",
     )
-    args = parser.parse_args()
+    raw_argv = [x for x in sys.argv[1:] if x not in {"\\n", "`n"}]
+    args, unknown = parser.parse_known_args(raw_argv)
+    if unknown:
+        raise ValueError(
+            "Неизвестные аргументы: "
+            f"{unknown}. Если вы запускаете в PowerShell, не используйте '\\n' для переноса строки. "
+            "Используйте одну строку или перенос через обратную кавычку (`)."
+        )
 
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)

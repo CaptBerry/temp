@@ -33,6 +33,30 @@ python geocube_3dcnn.py \
   --out_dir artifacts
 ```
 
+### Важно для Windows PowerShell
+
+В PowerShell нельзя переносить команду через `\` или добавлять буквальный `\n` как аргумент — это и вызывает ошибку `unrecognized arguments: \n`.
+
+Используйте **одну строку**:
+
+```powershell
+python .\geocube_3dcnn.py --cube_txt data/cube.txt --wells_txt data/wells.txt --nx 100 --ny 80 --nz 60 --c 4 --patch 5 5 5 --batch_size 32 --norm zscore --epochs 10 --out_dir artifacts
+```
+
+Или перенос через **обратную кавычку**:
+
+```powershell
+python .\geocube_3dcnn.py `
+  --cube_txt data/cube.txt `
+  --wells_txt data/wells.txt `
+  --nx 100 --ny 80 --nz 60 --c 4 `
+  --patch 5 5 5 `
+  --batch_size 32 `
+  --norm zscore `
+  --epochs 10 `
+  --out_dir artifacts
+```
+
 ## Загрузка из ваших путей (marks + not_marks)
 
 Добавлен режим подготовки таблиц с путями по умолчанию:
